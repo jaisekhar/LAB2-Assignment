@@ -1,0 +1,80 @@
+<nav class="navbar navbar-dark" style="background-color: #005cb9">
+  <span class="navbar-brand mx-auto h1">WeatherApp</span>
+</nav>
+
+<div class="container">
+  <div class="row" style="margin-top: 2rem">
+    <div class="col" style="margin-top: 5rem">
+      <h2 class="text-center" style="margin-bottom: 2rem">Get Weather Forecast Information of your Favourite Place.</h2>
+  <form [formGroup]="weatherSearchForm" (ngSubmit)="sendToAPIXU(weatherSearchForm.value)">
+    <div class="form-group">
+      <input
+        class="form-control"
+        type="text"
+        id="weatherLocation"
+        aria-describedby="weatherLocation"
+        placeholder="Please Enter your Location"
+        formControlName="location" />
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-success btn-md" style="background-color: #005cb9">
+        Search
+      </button>
+    </div>
+  </form>
+</div>
+    <div class="col-md-6" *ngIf="wdata">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title text-lg-center" align="center">{{this.wdata?.name}}, {{this.wdata?.sys.country}}</h3>
+          <div style="border-top: 1px solid #8c8b8b;border-bottom: 1px solid #fff;"></div>
+          <h5 class="card-title text-lg-center" align="center"><img [src]="'http://openweathermap.org/img/wn/'+this.wdata?.weather[0].icon+'@2x.png'"/>{{this.wdata?.weather[0].description}}</h5>
+          <h2 class="card-title text-lg-center" align="center" style="margin-top: -1rem">{{this.wdata?.main.temp}} <sup>o</sup>F</h2>
+          <p class="card-text text-center" style="margin-top: 1rem">Max: {{this.wdata?.main.temp_max}} F &nbsp;&nbsp; Min: {{this.wdata?.main.temp_min}} F</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 2rem" *ngIf="wdata">
+  <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <div class="row text-center">
+          <div class="col-sm-5">
+           <img [src]="'https://cdn1.iconfinder.com/data/icons/weather-line-icon-set-3/100/humidity-512.png'" height="20" width="20"/>
+          <p>Humidity <br><b>{{this.wdata?.main.humidity}}</b>%</p>
+          </div>
+          <div class="col-sm-5">
+            <img [src]="'https://png.pngtree.com/svg/20170613/pressure_490061.png'" height="20" width="20"/>
+            <p>Pressure <br><b>{{this.wdata?.main.pressure}}</b><i>hPa</i></p>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Tommorow Weather:</h6>
+              <div class="row">
+                <div class="col-sm-4">
+                  <p class="card-text"><b>{{this.fdata?.list[0].dt_txt | date: 'shortTime'}}</b><br><i>{{this.fdata?.list[0].main.temp}} F</i></p>
+              </div>
+              <div class="col-sm-4">
+                <p class="card-text"><b>{{this.fdata?.list[1].dt_txt | date: 'shortTime'}}</b><br><i>{{this.fdata?.list[1].main.temp}} F</i></p>
+            </div>
+            <div class="col-sm-4">
+              <p class="card-text"><b>{{this.fdata?.list[2].dt_txt | date: 'shortTime'}}</b><br><i>{{this.fdata?.list[2].main.temp}} F</i></p>
+          </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="page-footer fixed-bottom font-small blue">
+  <div class="footer-copyright text-center py-3">Designed and Developed with passsion by <b><i>Jaisekhar Koya & Chaitanya Mallepudi</i></b>
+  </div>
+</footer>
